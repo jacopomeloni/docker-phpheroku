@@ -28,6 +28,4 @@ RUN chmod +x /startNginx.sh && \
 # copy the application code
 COPY ./public/ /var/www/public
 
-EXPOSE $PORT
-
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor.d/supervisor.ini"]
