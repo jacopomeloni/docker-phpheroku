@@ -1,6 +1,6 @@
 FROM nginx:stable-alpine
 
-LABEL MANTEINER=jacopomeloni@gmail.com
+LABEL MANTAINER=jacopomeloni@gmail.com
 
 RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
     apk --update add \
