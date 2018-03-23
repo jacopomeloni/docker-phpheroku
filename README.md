@@ -1,5 +1,5 @@
 # docker-phpheroku
-nginx with php7-fpm, managed with supervisord optimized for deploy on heroku
+nginx with php7-fpm, managed with supervisord optimized to deploy on heroku as unique container-app
 
 It exposes $PORT port in order to be managed by heroku container system.
 
