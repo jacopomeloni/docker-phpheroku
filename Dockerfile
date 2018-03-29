@@ -2,11 +2,19 @@ FROM nginx:stable-alpine
 
 LABEL MANTAINER=jacopomeloni@gmail.com
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-    apk --update add \
+ENV PORT=80
+
+
+RUN apk --update --upgrade add \
+    php7 \
     php7-fpm \
-    supervisor \
-    && rm -rf /var/cache/apk/*
+    py-pip && \
+    ln -s /usr/bin/php7 /usr/bin/php
+
+RUN pip install --upgrade pip
+RUN pip install supervisor
+    
+RUN rm -rf /var/cache/apk/*
 
 # set the nginx configuration
 COPY ./conf/nginx/default.conf /default.conf
@@ -27,5 +35,7 @@ RUN chmod +x /startNginx.sh && \
 
 # copy the application code
 COPY ./public/ /var/www/public
+
+EXPOSE $PORT
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor.d/supervisor.ini"]
