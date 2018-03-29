@@ -4,16 +4,24 @@ LABEL MANTAINER=jacopomeloni@gmail.com
 
 ENV PORT=80
 
-
-RUN apk --update --upgrade add \
+RUN apk --update add \
+    curl \
     php7 \
     php7-fpm \
+    php7-iconv \
+    php7-json \
+    php7-openssl \
+    php7-phar \
+    php7-zlib \
     py-pip && \
     ln -s /usr/bin/php7 /usr/bin/php
 
 RUN pip install --upgrade pip
 RUN pip install supervisor
-    
+
+# install composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
 RUN rm -rf /var/cache/apk/*
 
 # set the nginx configuration
