@@ -1,10 +1,10 @@
-FROM nginx:stable-alpine
+FROM php:7.2-fpm-alpine
 
 LABEL MANTAINER=jacopomeloni@gmail.com
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/testing' >> /etc/apk/repositories && \
-    apk --update add \
-    php7-fpm \
+# install packages
+RUN apk --update add \
+    nginx \
     supervisor \
     && rm -rf /var/cache/apk/*
 
@@ -13,8 +13,8 @@ COPY ./conf/nginx/default.conf /default.conf
 COPY ./conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # copy the phpfpm configuration
-COPY ./conf/phpfpm/php-fpm.conf /etc/php7/php-fpm.conf
-COPY ./conf/phpfpm/www.conf /etc/php7/php-fpm.d/www.conf
+COPY ./conf/phpfpm/php-fpm.conf /usr/local/etc/php-fpm.conf
+COPY ./conf/phpfpm/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 # copy the supervisord configuration
 ADD ./conf/supervisord/supervisor.ini /etc/supervisor.d/supervisor.ini
@@ -27,5 +27,7 @@ RUN chmod +x /startNginx.sh && \
 
 # copy the application code
 COPY ./public/ /var/www/public
+
+EXPOSE $PORT
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor.d/supervisor.ini"]
