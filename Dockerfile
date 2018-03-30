@@ -32,6 +32,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # copy the application code
 COPY ./public/ /var/www/public
 
-EXPOSE $PORT
-
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor.d/supervisor.ini"]
