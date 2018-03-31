@@ -6,6 +6,8 @@ LABEL MANTAINER=jacopomeloni@gmail.com
 RUN apk --update add \
     nginx \
     supervisor \
+    gettext libintl \
+    && mv /usr/bin/envsubst /usr/local/sbin/envsubst \
     && rm -rf /var/cache/apk/*
 
 # set the nginx configuration
