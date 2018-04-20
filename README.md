@@ -8,7 +8,7 @@ Image for php application, ready to be deployed on Heroku Container Registry & R
 ## Build your image based on this one
 
 ### Dockerfile
-    FROM jacopomeloni/docker-phpheroku
+    FROM jacopomeloni/nginx-phpfpm-heroku
 
     COPY <your index.php>:/var/www/public
 
