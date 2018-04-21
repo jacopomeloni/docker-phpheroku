@@ -8,7 +8,9 @@ RUN apk --update add \
     supervisor \
     gettext libintl \
     && mv /usr/bin/envsubst /usr/local/sbin/envsubst \
-    && rm -rf /var/cache/apk/*
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /var/www/html \
+    && mkdir -p /var/log/supervisord
 
 # set the nginx configuration
 COPY ./conf/nginx/default.conf /default.conf
