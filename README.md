@@ -1,16 +1,17 @@
-# docker-phpheroku
+# nginxphpfpm-heroku
 Image for php application, ready to be deployed on Heroku Container Registry & Runtime
-- nginx:stable-alpine image with php7-fpm installed.
-- supervisord manage processes.
-- you can deploy on heroku as unique container-app.
-- you must expose $PORT port, so heroku can manage your image.
+- Image based on alpine.
+- Web server nginx with php7.2-fpm.
+- Processes managed by supervisor.
+- Image ready to be deployed on heroku as unique container-app.
+- Heroku rule: you must expose $PORT port, so Heroku Container Registry & Runtime can correctly manage your image.
 
 ## Build your image based on this one
 
-### Dockerfile
-    FROM jacopomeloni/nginx-phpfpm-heroku
+### Your Dockerfile
+    FROM jacopomeloni/nginxphpfpm-heroku
 
-    COPY <your index.php>:/var/www/public
+    COPY <your code>:/var/www/public
 
     EXPOSE $PORT
 
@@ -20,6 +21,6 @@ Image for php application, ready to be deployed on Heroku Container Registry & R
     $ docker build -t your-image .
 
 ## Run your container locally (example)
-docker run -e PORT=456 -p 9876:456 your-image
+docker run --rm -e PORT=456 -p 9876:456 your-image
 
 http://localhost:9876
