@@ -30,4 +30,6 @@ RUN chmod +x /startNginx.sh && \
 # copy the application code
 COPY ./public/ /var/www/public
 
+WORKDIR /var/www
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor.d/supervisor.ini"]
